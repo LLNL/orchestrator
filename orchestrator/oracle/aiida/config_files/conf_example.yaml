@@ -1,0 +1,17 @@
+---
+username: "<username>"
+port: 22
+look_for_keys: true
+key_filename: "/HOME/PATH/.ssh/id_ecdsa"
+timeout: 60
+allow_agent: true
+proxy_command: ""
+compress: true
+gss_auth: false
+gss_kex: false
+gss_deleg_creds: false
+gss_host: "<computer name>"
+load_system_host_keys: true
+key_policy: "RejectPolicy"
+use_login_shell: true
+safe_interval: 10.0

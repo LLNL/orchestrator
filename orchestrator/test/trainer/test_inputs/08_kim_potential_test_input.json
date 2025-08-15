@@ -1,0 +1,13 @@
+{"has_driver": true,
+"previous_driver_kimcode" : "SW__MD_335816936951_005",
+"previous_model_kimcode": "SW_StillingerWeber_1985_Si__MO_405512056662_006",
+"driver_test_kimcode" : "Test_Model_Driver__MD_000000111111_000",
+"example_kimcode_prefix" : "Test_Model_Si",
+"trainer_test_input_file": "test_inputs/02_kim_test_input.json",
+"driver_md" : {
+            "description": "Stillinger-Webber model driver",
+            "kim-api-version": "2.3.0",
+            "kim-item-type": "model-driver",
+            "title": "Stillinger Webber",
+            "extended-id": "Test_Model_Driver__MD_000000111111_000"}
+}

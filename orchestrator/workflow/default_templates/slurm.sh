@@ -1,0 +1,15 @@
+#!/bin/bash
+#SBATCH -N <NODES>
+#SBATCH -p <QUEUE>
+#SBATCH -A <ACCOUNT>
+#SBATCH -t <WALLTIME>
+#SBATCH --exclusive
+<EXTRA_HEADER>
+
+<PREAMBLE>
+
+<COMMAND>
+
+<POSTAMBLE>
+
+touch job_done

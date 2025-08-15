@@ -1,0 +1,13 @@
+non_interactive: y
+profile: orchestrator_<username>
+email: your@email.com
+first_name: First name
+last_name: Last name
+institution: your_institution
+use_rabbitmq: y
+database_hostname: <Hostname for Postgres>
+database_port: <Port for Postgres>
+database_name: orchestrator
+database_username: orchestrator
+database_password: <Password for Postgres>
+repository_uri: file:///path/to/aiida/repository

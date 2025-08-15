@@ -1,0 +1,28 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+    - id: trailing-whitespace
+      exclude: ^orchestrator/test/reference_output/
+    - id: end-of-file-fixer
+      exclude: ^orchestrator/test/reference_output/
+    - id: check-yaml
+      exclude: ^orchestrator/test/reference_output/
+    - id: check-added-large-files
+      args: ["--maxkb=1500"]
+
+-   repo: https://github.com/google/yapf
+    rev: v0.40.1
+    hooks:
+    - id: yapf
+      exclude: ^orchestrator/test/reference_output/
+
+-   repo: https://github.com/pycqa/flake8
+    rev: 6.1.0
+    hooks:
+    - id: flake8
+      exclude: ^orchestrator/test/reference_output/
+      additional_dependencies:
+      - pep8-naming==0.13.3

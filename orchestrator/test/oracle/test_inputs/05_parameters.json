@@ -1,0 +1,14 @@
+{
+    "incar": {
+        "encut": 400,
+        "prec": "ACCURATE",
+        "ediff": 1E-4,
+        "lorbit": 11,
+        "ismear": 0,
+        "sigma": 0.1,
+        "gga": "PS",
+        "kpar": 4,
+        "ncore": 4,
+        "nelm": 500
+    }
+}

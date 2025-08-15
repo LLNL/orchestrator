@@ -1,0 +1,19 @@
+{
+"storage":{
+        "storage_type":"LOCAL",
+        "storage_args":{
+            "database_path":"./local_database/",
+            "dataset_name":"06_local_batched_quests"
+        }
+    },
+    "init_config_path":"../sample_configs/",
+    "batch_size": 5,
+    "descriptors":{
+        "descriptor_type":"QUESTSDescriptor",
+        "path_type":"06_local_batched_quests",
+        "descriptor_args": {
+            "num_nearest_neighbors":32,
+            "cutoff": 5.0
+        }
+    }
+}

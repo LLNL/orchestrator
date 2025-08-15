@@ -1,0 +1,11 @@
+label: "<computer name>"
+hostname: "<computer address>"
+description: "<Computer at Institution>"
+transport: core.ssh
+scheduler: "core.slurm"
+work_dir: "/PATH/TO/SCRATCH/<username>/AiiDA"
+mpirun_command: "srun -n {tot_num_mpiprocs}"
+mpiprocs_per_machine: "<NUM CORES PER NODE>"
+prepend_text: ""
+append_text: " "
+shebang: "#!/bin/bash"

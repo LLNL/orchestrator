@@ -1,0 +1,19 @@
+{
+    "workflow":{
+        "workflow_type":"LOCAL",
+        "workflow_args":{
+            "root_directory":"./premade_potential_run"
+        }
+    },
+    "target_property":{
+        "target_property_type":"ElasticConstants",
+        "target_property_args":{
+            "lattice_param": 3.305,
+            "lattice_type": "bcc",
+            "deformation_mag": 0.0001,
+            "simulator_path":"<LAMMPS_PATH>",
+            "elements":["Ta"]
+        },
+        "potential":"SNAP_ThompsonSwilerTrott_2015_Ta__MO_359768485367_000"
+    }
+}

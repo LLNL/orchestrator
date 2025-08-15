@@ -1,0 +1,10 @@
+{
+    "storage":{
+        "storage_type":"COLABFIT",
+        "storage_args":{
+            "credential_file":"<STORAGE_CREDENTIAL_PATH>"
+        }
+    },
+    "init_config_path":"../sample_configs/",
+    "dataset_name":"storage_unit_test"
+}

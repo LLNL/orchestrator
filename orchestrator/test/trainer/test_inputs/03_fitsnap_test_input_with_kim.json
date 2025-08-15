@@ -1,0 +1,27 @@
+{
+    "potential":{
+        "potential_type":"FitSnap",
+        "potential_args":{
+            "settings_path":"./test_inputs/fitsnap_settings/Ta-example.in",
+            "model_driver":"Test_Model_Driver__MD_000000333333_000",
+            "species": ["Ta"],
+            "kim_api": "<KIM_API>"
+        }
+    },
+    "trainer":{
+        "trainer_type":"FitSnap",
+        "trainer_args":{
+            "eweight":1.0,
+            "fweight":1.0,
+            "vweight":1.0
+        }
+    },
+    "storage":{
+        "storage_type":"COLABFIT",
+        "storage_args":{
+            "credential_file":"<STORAGE_CREDENTIAL_PATH>"
+        }
+    },
+    "path_type":"03_unit_test",
+    "dataset_handle":"<TEST_Ta_DATASET_HANDLE>"
+}

@@ -1,0 +1,15 @@
+{
+    "init_args": {
+        "target_property_type": "KIMRun",
+        "target_property_args": {}
+    },
+    "calculate_property_args": {
+        "get_test_result_args": [{
+            "test": ["ElasticConstantsCubic_diamond_Si__TE_507832142782_001"],
+            "prop": ["elastic-constants-isothermal-cubic-crystal-npt"],
+            "keys": ["c11", "c12", "c44"],
+            "units": ["GPa", "GPa", "GPa"]
+        }],
+        "flatten": false
+    }
+}

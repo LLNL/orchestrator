@@ -1,0 +1,22 @@
+{
+    "storage":{
+        "storage_type":"COLABFIT",
+        "storage_args":{
+            "credential_file":"<STORAGE_CREDENTIAL_PATH>",
+            "dataset_name":"02_colabfit_descriptors"
+        }
+    },
+    "init_config_path":"../sample_configs/",
+    "descriptors":{
+        "descriptor_type":"KLIFFDescriptor",
+        "path_type":"02_colabfit",
+        "descriptor_args": {
+            "descriptor_type":"symmetry_function",
+            "cut_name":"cos",
+            "cut_dists":{
+                "Si-Si":4.0
+            },
+            "hyperparams":"set51"
+        }
+    }
+}

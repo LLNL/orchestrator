@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+*.log
+build/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+public/
+Public/
+.DS_store
+.ipynb_checkpoints/

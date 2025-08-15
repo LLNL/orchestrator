@@ -1,0 +1,39 @@
+{
+    "oracle": {
+        "oracle_type": "AiiDA-VASP",
+        "oracle_args": {
+            "workchain": "vasp.relax",
+            "code_str": "vasp_std_v6.4.1@ruby",
+            "vasp": {
+                "parameters": "./test_inputs/05_parameters.json",
+                "potential_family": "PBE.544",
+                "kspacing": 0.25,
+                "clean_workdir": false
+            },
+            "relax": {
+                "perform": false,
+                "algo": "cg"
+            }
+        },
+        "path_type": "05_unit_test",
+        "data_path": "../sample_configs/",
+        "job_details": {}
+    },
+    "storage": {
+        "storage_type": "LOCAL",
+        "storage_args": {
+            "database_path": "./scratch"
+        }
+    },
+    "workflow":{
+        "workflow_type": "AiiDA",
+        "workflow_args": {
+            "root_directory": "./oracle",
+            "queue": "<HPC_QUEUE>",
+            "account": "<HPC_ACCOUNT>",
+            "tasks": 56,
+            "nodes": 1,
+            "walltime": 60
+        }
+    }
+}

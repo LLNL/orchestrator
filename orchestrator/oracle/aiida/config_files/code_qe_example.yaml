@@ -1,0 +1,7 @@
+label: qe_pw_v7.4
+description: "QE v7.4 with Environ v3.1 on <computer name>"
+default_calc_job_plugin: "quantumespresso.pw"
+filepath_executable: /PATH/TO/pw.x
+computer: <computer name>
+prepend_text: " "
+append_text: " "

@@ -1,0 +1,21 @@
+# Set up logging
+log lammps.log
+
+# Set the OpenKIM model and units that will be used
+kim init <MODEL_NAME> metal
+
+# Periodic boundary conditions along all three dimensions
+boundary p p p
+
+# Create a box with 1 atom in it
+lattice fcc 1.0
+region box block 0 10 0 10 0 10 units lattice
+create_box 1 box
+mass 1 28.75
+create_atoms 1 single 0.5 0.5 0.5
+
+# Specify the KIM interactions
+kim interactions <SPECIES>
+
+
+run 0

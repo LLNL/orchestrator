@@ -1,0 +1,8 @@
+kim init kim_pot metal
+read_data conf.lmp
+kim interaction <ELEMENTS>
+timestep <TIMESTEP>
+velocity all create <TEMP_I> 4928459 rot yes dist gaussian
+fix 1 all npt temp <TEMP_I> <TEMP_F> <TEMP_FREQ> <BAROSTAT_TYPE> <PRESS_I> <PRESS_F> <PRESS_FREQ>
+dump 1 all atom <DUMP_FREQ> dump.lammpstrj
+run <NSTEPS>

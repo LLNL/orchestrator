@@ -1,0 +1,5 @@
+{"example_kimcode_prefix" : "Test_Model_Si",
+"model_driver" : "SW__MD_335816936951_005",
+"trainer_test_input_file": "test_inputs/02_kim_test_input.json",
+"lammps_executable": "<LAMMPS_PATH>"
+}

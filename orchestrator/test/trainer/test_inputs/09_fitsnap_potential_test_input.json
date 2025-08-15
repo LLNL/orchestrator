@@ -1,0 +1,13 @@
+{"has_driver": true,
+"previous_driver_kimcode" : "SW__MD_335816936951_005",
+"previous_model_kimcode": "SNAP__MD_536750310735_000",
+"driver_test_kimcode" : "Test_Model_Driver__MD_000000333333_000",
+"example_kimcode_prefix" : "Test_Model_Ta",
+"trainer_test_input_file": "test_inputs/03_fitsnap_test_input_with_kim.json",
+"driver_md" : {
+    "description": "SNAP Potential model driver",
+    "kim-api-version": "2.3.0",
+    "kim-item-type": "model-driver",
+    "title": "SNAP",
+    "extended-id": "Test_Model_Driver__MD_000000333333_000"}
+}

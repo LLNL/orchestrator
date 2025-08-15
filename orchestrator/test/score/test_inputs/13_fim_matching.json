@@ -1,0 +1,20 @@
+{
+    "storage":{
+        "storage_type":"LOCAL",
+        "storage_args":{
+            "database_path":"./local_database/",
+            "dataset_name":"13_fim_matching"
+        }
+    },
+    "batch_size": 9,
+    "score":{
+        "path_type":"13_fim_matching",
+        "score_type":"FIMMatchingScore",
+        "query_configs_path":"test_inputs/query_configs_with_fim.extxyz",
+        "score_args": {},
+        "compute_args": {
+            "score_quantity":"IMPORTANCE",
+	    "fim_property":"<INSTALL_PATH>/score/test_inputs/target_property_fim.json"
+        }
+    }
+}

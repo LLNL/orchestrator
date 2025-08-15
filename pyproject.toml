@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orchestrator"
+description = "IAP-UQ Orchestrator for training, deploying, and analyzing IAPs"
+readme = "README.md"
+authors = [
+    {name = "Kyle Bushick", email="bushick1@llnl.gov"},
+    {name = "Josh Vita", email="vita1@llnl.gov"},
+    {name = "Claire Waters", email="bwaters@umn.edu"},
+    {name = "Fikret Aydin", email="aydin1@llnl.gov"},
+    {name = "Logan Williams", email="williams332@llnl.gov"},
+    {name = "Eric Fuemmeler", email="efuemmel@umn.edu"},
+    {name = "Nathan Keilbart", email="keilbart1@llnl.gov"},
+    {name = "Ilia Nikiforov", email="nikif002@umn.edu"},
+    {name = "Amit Gupta", email="gupta839@umn.edu"},
+    {name = "ShinYoung Kang", email="kang10@llnl.gov"},
+    {name = "Yonatan Kurniawan", email="yonatank@student.byu.edu"},
+    {name = "Jared Stimac", email="stimac1@llnl.gov"},
+    {name = "Huy Pham", email="pham20@llnl.gov"},
+    {name = "Marcos Felipe Calegari Andrade", email="calegariandr1@llnl.gov"},
+    {name = "Tomas Oppelstrup", email="oppelstrup2@llnl.gov"},
+    {name = "Ellad Tadmor", email="tadmor@umn.edu"},
+    {name = "Vince Lordi", email="lordi2@llnl.gov"},
+]
+version = "0.0.5"
+requires-python = ">= 3.10"
+dependencies = [
+    "ase==3.25.0",
+    "colabfit-kit",
+    "fitsnap3 @ git+https://github.com/FitSNAP/FitSNAP.git",
+    "furo",
+    "h5py==3.13.0",
+    "kim-edn==1.4.1",
+    "kimpy==2.1.3",
+    "kliff @ git+https://github.com/openkim/kliff",
+    "lmdb",
+    "pandas==2.2.3",
+    "pre-commit",
+    "pytest==8.3.5",
+    "scikit-learn==1.6.1",
+    "scipy==1.15.2",
+    "sphinx",
+    "sphinx-copybutton",
+    "sphinx-autodoc-typehints",
+    "sphinx-design",
+    "torch==2.4.0",
+    "kimkit==1.1.0"
+]
+
+[project.optional-dependencies]
+LTAU = [
+    "faiss-cpu == 1.8.0",
+    "ltau-ff @ git+https://github.com/LLNL/ltau-ff/",
+]
+QUESTS = [
+    "quests @ git+https://github.com/dskoda/quests.git",
+]
+FIMMATCHING = [
+    "numdifftools",
+    "sdpa-python >= 0.2.2",
+    "cvxpy >= 1.3",
+    "information-matching @ git+https://github.com/yonatank93/information-matching.git"
+]
+AIIDA = [
+    "aiida-core==2.6.2",
+    "aiida-vasp==4.1.0",
+    "aiida-quantumespresso==4.7.0",
+    "aiida-pseudo==1.6.0"
+]
+
+[tool.setuptools.packages.find]
+exclude = ["public"]
+
+[project.urls]
+Homepage = "TO BE UPDATED"
+Documentation = "TO BE UPDATED"
+Repository = "TO BE UPDATED"

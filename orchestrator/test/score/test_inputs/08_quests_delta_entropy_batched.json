@@ -1,0 +1,26 @@
+{
+    "storage":{
+        "storage_type":"LOCAL",
+        "storage_args":{
+            "database_path":"./local_database/",
+            "dataset_name":"08_quests_delta_entropy_batched"
+        }
+    },
+    "batch_size": 5,
+    "score":{
+        "path_type":"08_quests_delta_entropy_batched",
+        "score_type":"QUESTSDeltaEntropyScore",
+        "query_configs_path": "test_inputs/query_configs.extxyz",
+        "score_args": {
+        },
+        "compute_args": {
+            "score_quantity":"DELTA_ENTROPY",
+            "reference_set": "test_inputs/train_descriptors.npy",
+            "descriptors_key": "descriptors",
+            "bandwidth": 0.015,
+            "approx": false,
+            "num_nearest_neighbors": 3,
+            "graph_neighbors": 10
+        }
+    }
+}

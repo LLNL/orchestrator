@@ -1,0 +1,4 @@
+{"has_driver" : false,
+"driver_test_kimcode" : "no-driver",
+"example_kimcode_prefix" : "Test_Model_Si",
+"trainer_test_input_file": "test_inputs/01_dnn_test_input.json"}

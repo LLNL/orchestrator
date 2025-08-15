@@ -1,0 +1,27 @@
+{
+    "potential":{
+        "potential_type":"KIM",
+        "potential_args":{
+	    "kim_api":"<KIM_API>",
+            "kim_id":"SW_StillingerWeber_1985_Si__MO_405512056662_006",
+            "model_driver":"SW__MD_335816936951_005",
+            "species": ["Si"]
+        }
+    },
+    "workflow":{
+        "workflow_type":"LOCAL",
+        "workflow_args":{
+            "root_directory":"./Si_kim_potential_run"
+        }
+    },
+    "target_property":{
+        "target_property_type":"ElasticConstants",
+        "target_property_args":{
+            "lattice_param": 5.43,
+            "lattice_type": "diamond",
+            "deformation_mag": 0.0001,
+            "simulator_path":"<LAMMPS_PATH>",
+            "elements":["Si"]
+        }
+    }
+}

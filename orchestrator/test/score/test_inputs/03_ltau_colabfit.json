@@ -1,0 +1,26 @@
+{
+    "storage":{
+        "storage_type":"COLABFIT",
+        "storage_args":{
+            "credential_file":"<STORAGE_CREDENTIAL_PATH>",
+            "dataset_name":"03_ltau_colabfit"
+        }
+    },
+    "batch_size": 1,
+    "score":{
+        "path_type":"03_ltau_colabfit",
+        "score_type":"LTAUForcesUQScore",
+        "query_configs_path":"test_inputs/query_configs.extxyz",
+        "score_args": {
+            "train_descriptors":"test_inputs/train_descriptors.npy",
+            "error_pdfs":"test_inputs/error_traj.npy",
+            "from_error_logs":true,
+            "nbins":100
+        },
+        "compute_args": {
+            "score_quantity":"UNCERTAINTY",
+            "descriptors_key": "descriptors",
+            "num_nearest_neighbors":1
+        }
+    }
+}

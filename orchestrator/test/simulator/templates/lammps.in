@@ -1,0 +1,9 @@
+kim init <MODEL_NAME> metal
+read_data conf.lmp
+kim interactions Si
+mass 1 28.086
+timestep 0.001
+velocity all create <TEMPERATURE> 4928459 rot yes dist gaussian
+fix 1 all npt temp <TEMPERATURE> <TEMPERATURE> 0.1 aniso <PRESSURE> <PRESSURE> 1.0
+dump 1 all custom 5 dump.lammpstrj id type x y z
+run 20

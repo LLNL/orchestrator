@@ -1,0 +1,33 @@
+{
+    "oracle": {
+        "oracle_type": "AiiDA-QE",
+        "oracle_args": {
+            "workchain": "quantumespresso.pw.relax",
+            "code_str": "qe_pw_v7.4@ruby",
+            "parameters": "./test_inputs/06_parameters.json",
+            "pseudo_family": "SSSP/1.3/PBE/precision",
+            "kspacing": 0.25,
+            "clean_workdir": false
+        },
+        "path_type": "06_unit_test",
+        "data_path": "../sample_configs/",
+        "job_details": {}
+    },
+    "storage": {
+        "storage_type": "LOCAL",
+        "storage_args": {
+            "database_path": "./scratch"
+        }
+    },
+    "workflow":{
+        "workflow_type": "AiiDA",
+        "workflow_args": {
+            "root_directory": "./oracle",
+            "queue": "<HPC_QUEUE>",
+            "account": "<HPC_ACCOUNT>",
+            "tasks": 56,
+            "nodes": 1,
+            "walltime": 60
+        }
+    }
+}

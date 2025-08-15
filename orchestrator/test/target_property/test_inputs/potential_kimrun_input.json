@@ -1,0 +1,33 @@
+{
+    "workflow":{
+        "workflow_type":"LOCAL",
+        "workflow_args":{
+            "root_directory":"./potential_kimrun"
+        }
+    },
+    "potential":{
+        "potential_type":"KIM",
+        "potential_args":{
+            "kim_api":"<KIM_API>",
+            "kim_id":"SW_StillingerWeber_1985_Si__MO_405512056662_006",
+            "species": ["Si"],
+            "model_driver": "SW__MD_335816936951_005"
+        }
+    },
+    "randomize_kim_id":true,
+    "target_property":{
+        "target_property_type":"KIMRun",
+        "calculate_property_args":{
+            "flatten": true,
+            "get_test_result_args":
+            [
+                {
+                    "test": ["TE_973027833948_004"],
+                    "prop": ["cohesive-energy-relation-cubic-crystal"],
+                    "keys": ["a","cohesive-potential-energy"],
+                    "units": ["angstrom","eV"]
+                }
+            ]
+        }
+    }
+}

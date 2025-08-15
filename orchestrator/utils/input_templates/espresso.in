@@ -1,0 +1,31 @@
+&control
+  calculation='scf'
+  prefix='runqe'
+  pseudo_dir='<PSEUDO_DIR>'
+  outdir='./out'
+  restart_mode='from_scratch'
+  max_seconds=3400
+  tstress=.true.
+  tprnfor=.true.
+/
+&system
+  ibrav=0
+  nat=<NATOMS>
+  ntyp=<NTYPE>
+  ecutwfc=100
+/
+&electrons
+  electron_maxstep = 1000
+  mixing_beta = 0.5
+  conv_thr = 1.D-6
+/
+&ions
+/
+&cell
+/
+ATOMIC_SPECIES
+<ATOMIC_SPECIES>
+CELL_PARAMETERS {angstrom}
+<CELL_PARAMETERS>
+ATOMIC_POSITIONS {angstrom}
+<ATOMIC_POSITIONS>

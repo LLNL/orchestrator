@@ -1,0 +1,11 @@
+{
+    "storage":{
+        "storage_type":"LOCAL",
+        "storage_args":{
+            "database_path":"./local_database/",
+            "dataset_name":"testing_set"
+        }
+    },
+    "init_config_path":"../sample_configs/",
+    "dataset_name":"storage_unit_test"
+}

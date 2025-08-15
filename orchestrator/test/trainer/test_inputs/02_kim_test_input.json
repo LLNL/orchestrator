@@ -1,0 +1,31 @@
+{
+    "potential":{
+        "potential_type":"KIM",
+        "potential_args":{
+            "kim_id":"SW_StillingerWeber_1985_Si__MO_405512056662_006",
+            "kim_api":"<KIM_API>",
+            "model_driver": "SW__MD_335816936951_005",
+            "species":["Si"]
+        }
+    },
+    "trainer":{
+        "trainer_type":"KLIFF",
+        "trainer_args": {
+            "model_name": "SW_StillingerWeber_1985_Si__MO_405512056662_006",
+            "params_to_update": ["A", "B", "sigma"],
+            "eweight": 0.1,
+            "fweight":1.0,
+            "loss_method": "mse",
+            "max_evals": 100,
+            "optimization_method": "L-BFGS-B"
+        }
+        },
+    "storage":{
+        "storage_type":"COLABFIT",
+        "storage_args":{
+            "credential_file":"<STORAGE_CREDENTIAL_PATH>"
+        }
+    },
+    "path_type":"02_unit_test",
+    "dataset_handle": "<TEST_Si_DATASET_HANDLE>"
+}

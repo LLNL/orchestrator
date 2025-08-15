@@ -1,0 +1,28 @@
+{
+    "kpoints_distance": 0.25,
+    "pseudo_family": "PseudoDojo/0.4/PBEsol/SR/standard/upf",
+    "pw": {
+        "parameters": {
+            "CONTROL": {
+                "calculation": "scf",
+                "forc_conv_thr": 0.001,
+                "tprnfor": true,
+                "tstress": true,
+                "etot_conv_thr": 0.0001
+            },
+            "SYSTEM": {
+                "nosym": false,
+                "occupations": "smearing",
+                "smearing": "mv",
+                "degauss": 0.01,
+                "ecutwfc": 90.0,
+                "ecutrho": 1080.0
+            },
+            "ELECTRONS": {
+                "electron_maxstep": 80,
+                "mixing_beta": 0.4,
+                "conv_thr": 4e-10
+            }
+        }
+    }
+}

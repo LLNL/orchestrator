@@ -1,0 +1,30 @@
+{
+    "workflow":{
+        "workflow_type":"LOCAL",
+        "workflow_args":{
+            "root_directory":"./kimkit_sm_kimrun"
+        }
+    },
+    "target_property":{
+        "target_property_type":"KIMRun",
+        "calculate_property_args":{
+            "flatten": true,
+            "get_test_result_args":
+            [
+                {
+                    "test": ["TE_866278965431"],
+                    "prop": ["elastic-constants-isothermal-cubic-crystal-npt"],
+                    "keys": ["c11","c12","c44"],
+                    "units": ["GPa","GPa","GPa"]
+                },
+                {
+                    "test": ["TE_155104699590"],
+                    "prop": ["cohesive-potential-energy-cubic-crystal"],
+                    "keys": ["a","cohesive-potential-energy","basis-atom-coordinates"],
+                    "units": ["angstrom","eV",null]
+                }
+            ]
+        },
+        "potential": "Sim_LAMMPS_MEAM_Lenosky_2017_W__SM_631352869360_000"
+    }
+}

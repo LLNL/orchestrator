@@ -1,0 +1,23 @@
+{
+    "storage":{
+        "storage_type":"LOCAL",
+        "storage_args":{
+            "database_path":"./local_database/",
+            "dataset_name":"01_local"
+        }
+    },
+    "init_config_path":"../sample_configs/",
+    "batch_size": 1,
+    "descriptors":{
+        "path_type":"01_local",
+        "descriptor_type":"KLIFFDescriptor",
+        "descriptor_args": {
+            "descriptor_type":"symmetry_function",
+            "cut_name":"cos",
+            "cut_dists":{
+                "Si-Si":4.0
+            },
+            "hyperparams":"set51"
+        }
+    }
+}

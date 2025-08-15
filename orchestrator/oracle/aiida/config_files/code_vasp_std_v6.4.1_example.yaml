@@ -1,0 +1,7 @@
+label: vasp_std_v6.4.1
+description: "VASP std v6.4.1 on <computer name>"
+default_calc_job_plugin: "vasp.vasp"
+filepath_executable: "/PATH/TO/vasp"
+computer: <computer name>
+prepend_text: |
+append_text: " "

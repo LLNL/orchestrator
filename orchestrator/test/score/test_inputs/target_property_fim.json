@@ -1,0 +1,28 @@
+{
+    "fim_property_score": [
+	[
+	    51.67511567915718,
+	    -179.85957614724407
+	],
+	[
+	    -179.85957614724407,
+	    1390.1001933321497
+	]
+    ],
+    "_metadata": {
+        "potential": {
+            "type": "KIM",
+            "name": "SW_StillingerWeber_1985_Si__MO_405512056662_006"
+        },
+        "parameters_optimize": "{'A': [[15.2848479197914]], 'B': [['default']], 'lambda': [[0.0, 'fix']]}",
+        "transform": {
+            "name": "affine",
+            "args": "{'a': 1.0, 'b': 0.0, 'ainv': 1.0}"
+        },
+        "derivative_kwargs": "{}",
+        "target_property": [
+            "{'init_args': {'target_property_type': 'ElasticConstants', 'target_property_args': {'lattice_param': 5.43, 'lattice_type': 'diamond', 'deformation_mag': 0.0001, 'simulator_path': '<LAMMPS_PATH>', 'elements': ['Si']}}, 'calculate_property_args': {'workflow': {'workflow_type': 'LOCAL', 'workflow_args': {'root_directory': 'fim_property_output_files'}}}}"
+        ],
+        "cov": "<INSTALL_PATH>/score/test_inputs/target_property_cov.npy"
+    }
+}

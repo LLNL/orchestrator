@@ -1,0 +1,16 @@
+{
+    "simulator_type":"LAMMPS",
+    "simulator_args":{
+        "code_path":"<LAMMPS_PATH>",
+        "input_template":"./templates/lammps.in",
+        "elements":["Si"]
+    },
+    "init_conf":"../sample_configs",
+    "input_args":{
+        "temperature":300,
+        "pressure":1,
+        "model_name":"SW_StillingerWeber_1985_Si__MO_405512056662_006"
+    },
+    "model_path": null,
+    "path_type":"01_unit_test"
+}
