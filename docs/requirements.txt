@@ -1,0 +1,8 @@
+# These dependencies should be installed using pip in order
+# to build the documentation.
+
+furo
+sphinx
+sphinx-copybutton
+sphinx-autodoc-typehints
+sphinx-design

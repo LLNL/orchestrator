@@ -75,6 +75,6 @@ AIIDA = [
 exclude = ["public"]
 
 [project.urls]
-Homepage = "TO BE UPDATED"
+Homepage = "https://github.com/LLNL/orchestrator"
 Documentation = "TO BE UPDATED"
-Repository = "TO BE UPDATED"
+Repository = "https://github.com/LLNL/orchestrator"

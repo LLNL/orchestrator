@@ -93,12 +93,12 @@ you will still need to run `pre-commit install` the first time in your repo.
 # Contributing
 
 If you would like to request a new feature or report a bug, please do so using
-the [issues](TO BE UPDATED) page, which includes a formatted template and a
+the [issues](https://github.com/LLNL/orchestrator/issues) page, which includes a formatted template and a
 variety of labels to improve organization.
 
-For contributing to the code, branches should be based of off `develop` and a
-[merge request](TO BE UPDATED) should be opened with the template completed.
-Ideally, this MR will correspond with at least one open issue, which can be
+For contributing to the code, branches should be based of off `main` and a
+[pull request](https://github.com/LLNL/orchestrator/pulls) should be opened with the template completed.
+Ideally, this PR will correspond with at least one open issue, which can be
 automatically tracked by naming the branch as `issue_number-branch_name`.
 
 ## Commit message codes
@@ -136,7 +136,8 @@ or
 Orchestrator is distributed under the Apache 2.0 with LLVM exception License.
 All new contributions must be made under this license.
 
-See [LICENSE](TO BE UPDATED), and [NOTICE](TO BE UPDATED) for details.
+See [LICENSE](https://github.com/LLNL/orchestrator/blob/main/LICENSE.txt), and 
+[NOTICE](https://github.com/LLNL/orchestrator/blob/main/NOTICE.txt) for details.
 
 LLNL-CODE-2009974
 

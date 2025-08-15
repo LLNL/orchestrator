@@ -29,7 +29,7 @@ following terminal command:
 
 .. code-block:: console
 
-   $ wget https://lc.llnl.gov/TO BE UPDATED/orchestrator/-/blob/develop/auto_install_orchestrator.sh
+   $ wget https://raw.githubusercontent.com/LLNL/orchestrator/refs/heads/main/auto_install_orchestrator.sh
 
 Place this script in an **empty directory** where you want the environment to
 be installed. Note that micromamba is entirely self-contained and will not
