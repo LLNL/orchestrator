@@ -1,3 +1,5 @@
+<img src="./docs/source/orchestrator_banner.png" alt="banner" width="600"/>
+
 The Orchestrator is an extensible and modular python framework developed as
 part of a Laboratory Directed Research and Development (LDRD) Strategic
 Initiaive at Lawrence Livermore National Lab. It aims to streamline the complex
