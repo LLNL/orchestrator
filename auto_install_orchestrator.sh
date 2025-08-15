@@ -17,7 +17,7 @@ ENV_NAME=${ENV_NAME:-orchestrator} # override with ENV_NAME=myenv ./install.sh
 PY_VER=3.10
 ROOT_PREFIX="${PWD}"               # micromamba root lives beside this script
 MICROMAMBA_BIN="${PWD}/bin/micromamba"
-REPO_URL="PATH/TO/orchestrator.git"
+REPO_URL="https://github.com/LLNL/orchestrator.git"
 REPO_DIR="orchestrator" # where the repo will be cloned
 KIM_API_ENVIRONMENT_COLLECTION="/PATH/TO/SHARED/ENVIRONMENT/COLLECTION/DIR" # for accessing shared potentials
 STARTUP_FILE="source_me.sh"
