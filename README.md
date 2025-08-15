@@ -13,7 +13,8 @@ process.
 
 # Documentation
 
-Please check the documentation (available [here](TO BE UPDATED)) for
+Please check the documentation (available
+[here](https://orchestrator-docs.readthedocs.io/en/latest/index.html)) for
 more information on installing dependencies, setting up the envionment to use
 all supported features, and documentation on the Orchestrator as a whole,
 including usage examples.
