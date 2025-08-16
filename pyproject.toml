@@ -76,5 +76,5 @@ exclude = ["public"]
 
 [project.urls]
 Homepage = "https://github.com/LLNL/orchestrator"
-Documentation = "TO BE UPDATED"
+Documentation = "https://orchestrator-docs.readthedocs.io/en/latest/index.html"
 Repository = "https://github.com/LLNL/orchestrator"
