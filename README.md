@@ -1,4 +1,4 @@
-<img src="./docs/source/orchestrator_banner.png" alt="banner" width="600"/>
+<img src="./docs/source/orchestra-logo-horiz-color.png" alt="banner" width="800"/>
 
 The Orchestrator is an extensible and modular python framework developed as
 part of a Laboratory Directed Research and Development (LDRD) Strategic
