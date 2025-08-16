@@ -9,7 +9,6 @@ import numpy as np
 from copy import deepcopy
 from ase import Atoms
 
-from ...workflow.factory import workflow_builder
 from ...workflow import Workflow
 from ...storage import Storage
 from ...utils.data_standard import METADATA_KEY
@@ -82,11 +81,6 @@ class AiidaOracle(Oracle):
         else:
             self.group = None
 
-        self.default_wf = workflow_builder.build(
-            'AiiDA',
-            {'root_directory': './oracle'},
-        )
-
     def run(
         self,
         path_type: str = None,
@@ -150,7 +144,7 @@ class AiidaOracle(Oracle):
             else:
                 self.workflow = workflow
         elif self.workflow is None:
-            self.workflow = self.default_wf
+            raise RuntimeError('AiiDA run must explicitly provide a workflow')
 
         if job_details is None:
             job_details = {}
@@ -215,7 +209,7 @@ class AiidaOracle(Oracle):
         """
 
         if workflow is None:
-            workflow = self.default_wf
+            raise RuntimeError('AiiDA save must explicitly provide a workflow')
 
         if isinstance(pks, int):
             pks = [pks]
