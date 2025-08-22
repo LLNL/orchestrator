@@ -701,9 +701,25 @@ class FitSnapPotential(Potential):
                 for file in os.listdir(param_path)
             ]
 
-            bad_extensions = ("txt", "edn")
+            # only these file extensions
+            # should be in the fitsnap param files
+            good_extensions = ("snapparam", "snapcoeff", "hybridparam", "pair")
+
+            for file in param_files:
+                needs_removed = True
+                for extension in good_extensions:
+                    if extension in file:
+                        needs_removed = False
+                if needs_removed:
+                    param_files.remove(file)
+
+            # these file extensions
+            # should never be a part of any param_files
+            bad_extensions = ("txt", "edn", "md")
             for file in param_files:
                 if file[-3:] in bad_extensions:
+                    param_files.remove(file)
+                if file[-2:] in bad_extensions:
                     param_files.remove(file)
 
             self.param_files = param_files
