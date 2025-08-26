@@ -3,7 +3,7 @@
         "potential_type":"FitSnap",
         "potential_args":{
             "settings_path":"./test_inputs/fitsnap_settings/Ta-example.in",
-            "model_driver":"SNAP__MD_536750310735_001",
+            "model_driver":"SNAP__MD_536750310735_000",
             "kim_api":"<KIM_API>",
             "species": ["Ta"]
         }

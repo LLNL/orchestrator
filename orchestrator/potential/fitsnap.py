@@ -17,6 +17,12 @@ class FitSnapPotential(Potential):
     All parameters defining the snap potential are defined in the
     settings file described in the trainer_args dict.
 
+    NOTE: If building FitSNAP potentials as portable models, they will
+    default to the OpenKIM model driver SNAP__MD_536750310735_000,
+    which does not support explicit multielement potentials.
+    Potentials that wish to use explicit multielement speicies should be
+    saved as simulator-models instead.
+
     :param trainer_args: dict with the input parameters and their values as k,v
         pairs. Parameters include:
     :param settings_path:
@@ -136,7 +142,7 @@ class FitSnapPotential(Potential):
 
         if not model_driver:
             # default to openkim snap model driver if none supplied
-            model_driver = "SNAP__MD_536750310735_001"
+            model_driver = "SNAP__MD_536750310735_000"
 
         self.checkpoint_name = checkpoint_name
 
@@ -407,7 +413,7 @@ class FitSnapPotential(Potential):
                 model_driver = self.model_driver
             except AttributeError:
                 # default to openkim snap model driver if none supplied
-                model_driver = "SNAP__MD_536750310735_001"
+                model_driver = "SNAP__MD_536750310735_000"
         if not species:
             try:
                 species = self.species
@@ -667,7 +673,7 @@ class FitSnapPotential(Potential):
                 self.model_driver
             except AttributeError:
                 # default to openkim snap model driver if none supplied
-                self.model_driver = "SNAP__MD_536750310735_001"
+                self.model_driver = "SNAP__MD_536750310735_000"
         return super().install_potential_in_kim_api(
             potential_name=potential_name,
             kim_item_type=kim_item_type,

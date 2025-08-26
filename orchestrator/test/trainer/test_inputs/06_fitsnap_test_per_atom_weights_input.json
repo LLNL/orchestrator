@@ -5,7 +5,7 @@
             "settings_path":"./test_inputs/fitsnap_settings/Ta-example.in",
             "kim_api": "<KIM_API>",
             "species": ["Ta"],
-            "model_driver":"SNAP__MD_536750310735_001"
+            "model_driver":"SNAP__MD_536750310735_000"
         }
     },
     "trainer":{
