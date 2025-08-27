@@ -632,7 +632,7 @@ class FitSnapPotential(Potential):
         potential_name='kim_potential',
         kim_item_type='portable-model',
         model_defn=None,
-        install_locality='CWD',
+        install_locality='environment',
         save_path='.',
         import_into_kimkit=True,
     ) -> None:

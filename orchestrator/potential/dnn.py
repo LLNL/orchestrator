@@ -418,7 +418,7 @@ class KliffBPPotential(Potential):
         self,
         potential_name='kim_potential',
         kim_item_type='simulator-model',
-        install_locality='CWD',
+        install_locality='environment',
         save_path='.',
     ) -> None:
         """

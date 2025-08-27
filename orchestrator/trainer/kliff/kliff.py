@@ -192,7 +192,7 @@ class KLIFFTrainer(Trainer):
 
         potential.install_potential_in_kim_api(save_path=save_path,
                                                potential_name=potential_name,
-                                               install_locality='CWD')
+                                               install_locality='environment')
         system((f'mv kliff_saved_model finger*pkl kliff.log '
                 f'{save_path}/{potential_name}'))
         return f'{save_path}/{potential_name}'
