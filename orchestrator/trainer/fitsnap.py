@@ -672,6 +672,9 @@ class FitSnapTrainer(Trainer):
             # for compatibility with older versions of LAMMPS
             system('sed -i "s/switchinnerflag 0/# switchinnerflag 0 commented '
                    f'by orchestrator/" {save_path}/{potential_name}.snapparam')
+            # for compatibility with 000 version of kim model
+            system('sed -i "s/wselfallflag 0/# wselfallflag 0 commented '
+                   f'by orchestrator/" {save_path}/{potential_name}.snapparam')
 
             potential.parameter_path = f'{save_path}/{potential_name}'
             potential.training_hash = snap.config.hash

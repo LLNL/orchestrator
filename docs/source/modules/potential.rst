@@ -241,6 +241,11 @@ trainer.train(...per_atom_weights=False). ACE models will likely train
 but not be uploaded to kimkit correctly just yet, but this is next on
 the TODO list.
 
+Currently, orchestrator will comment out the wselfallflag and switchinnerflag
+lines in .snapparam files for compatibility with older versions of
+the kim model and LAMMPS. Trying to fit with those options enabled will
+not perform as expected.
+
 KIMPotential:
 This loads an existing KIM potential, so its first required argument is
 the KIM ID.

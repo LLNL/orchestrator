@@ -152,7 +152,7 @@ class FitSnapPotential(Potential):
             "kim_api": kim_api
         }
 
-        self.name = "trained_potential"
+        self.name = "fitsnap_potential"
 
         super().__init__(
             kim_id,
@@ -202,6 +202,7 @@ class FitSnapPotential(Potential):
         )
         self.parameter_path = restart_dict.get('parameter_path',
                                                self.parameter_path)
+        self.kim_id = restart_dict.get('kim_id', self.kim_id)
         self.build_potential()
 
     def build_potential(self) -> FitSnap:

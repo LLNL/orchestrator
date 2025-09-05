@@ -512,6 +512,8 @@ class Potential(Recorder, ABC):
                     if kimkit_matching_items is not None:
                         if len(kimkit_matching_items) > 0:
                             update_version = True
+                        else:
+                            update_version = False
                     else:
                         update_version = False
 

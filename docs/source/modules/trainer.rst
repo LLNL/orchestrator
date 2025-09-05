@@ -90,7 +90,7 @@ loader structure that does not support individual atom weighting at the moment.
 All linear or quadratic type SNAP type models are compatible with per atom weighting.
 
 For :class:`~orchestrator.potential.trainer.kliff.kliff_dunn_trainer.DUNNTrainer` and
-:class:`~orchestrator.potential.trainer.kliff.kliff_parametric_trainer.ParametricModelTrainer` 
+:class:`~orchestrator.potential.trainer.kliff.kliff_parametric_trainer.ParametricModelTrainer`
 the per_atom_weights currently only accepts a True/False boolean, and
 will attempt to locate the data within the storage object datasets under
 the label atomic_weights.

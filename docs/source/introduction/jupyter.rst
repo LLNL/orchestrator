@@ -27,7 +27,7 @@ Creating the Kernel
 
 3. Now, set the required environment variables for your kernel. Using the
    example above, locate the configuration file at
-   ``.local/share/jupyter/kernels/orchestrator_kernel/kernel.json``.
+   ``~/.local/share/jupyter/kernels/orchestrator_kernel/kernel.json``.
    Add the following entries to the JSON file under an ``env`` block:
 
    .. code-block::

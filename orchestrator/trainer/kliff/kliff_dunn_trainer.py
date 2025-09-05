@@ -39,10 +39,14 @@ class DUNNTrainer(KLIFFTrainer):
     :param learning_rate: Learning rate used by the optimizer |default| 0.001
     :type learning_rate: float
     :param training_split: Fraction of data to use for training (rest for
-        validation) |default| 0.8
+                           validation) |default| 0.8
     :type training_split: float
     :param optimizer: Optimizer to use for training |default| 'Adam'
     :type optimizer: str
+    :param log_per_atom_pred: Whether to log per-atom predictions during
+                              training for both in-memory and submitted
+                              jobs |default| True
+    :type log_per_atom_pred: bool
     :param kwargs: Additional keyword arguments passed to the superclass.
     :type kwargs: dict
     """
@@ -56,6 +60,7 @@ class DUNNTrainer(KLIFFTrainer):
         learning_rate: float = 1e-3,
         training_split: float = 0.8,
         optimizer: str = 'Adam',
+        log_per_atom_pred: bool = True,
         **kwargs,
     ):
         """
@@ -70,13 +75,18 @@ class DUNNTrainer(KLIFFTrainer):
         :param batch_size: Number of configurations per mini-batch |default| 32
         :type batch_size: int
         :param learning_rate: Learning rate used by the optimizer
-            |default| 0.001
+                              |default| 0.001
         :type learning_rate: float
         :param training_split: Fraction of data to use for training (rest for
-            validation) |default| 0.8
+                               validation) |default| 0.8
         :type training_split: float
         :param optimizer: Optimizer to use for training |default| 'Adam'
         :type optimizer: str
+        :param per_atom_weights: Per atom weights for the loss function,
+                                If boolean, value is provided, the weights
+                                are assumed to be present in the provided
+                                dataset. |default| ``False``
+        :type per_atom_weights: bool
         :param kwargs: Additional keyword arguments passed to the superclass.
         :type kwargs: dict
         """
@@ -84,6 +94,7 @@ class DUNNTrainer(KLIFFTrainer):
         self.epochs = epochs
         self.batch_size = batch_size
         self.learning_rate = learning_rate
+        self.log_per_atom_pred = log_per_atom_pred
         super().__init__(
             training_split=training_split,
             loss_method=loss_method,
@@ -155,10 +166,11 @@ class DUNNTrainer(KLIFFTrainer):
         minimizing a loss function.
 
         :param path_type: specifier for the workflow path, to differentiate
-            training runs
+                          training runs
         :type path_type: str
         :param potential: :class:`~orchestrator.potential.dnn.KliffBPPotential`
-            class object containing model to be trained as an attribute
+                          class object containing model to be trained as an
+                          attribute
         :type potential: KliffBPPotential
         :param storage: an instance of the storage class
         :type storage: Storage
@@ -166,8 +178,9 @@ class DUNNTrainer(KLIFFTrainer):
             within the storage object to use as the dataset.
         :type dataset_list: list
         :param workflow: the workflow for managing path definition and job
-            submission, if none are supplied, will use the default workflow
-            defined in this class |default| ``None``
+                         submission, if none are supplied, will use the
+                         default workflow defined in this class
+                         |default| ``None``
         :type workflow: Workflow
         :param eweight: weight of energy data in the loss function
         :type eweight: float
@@ -175,27 +188,27 @@ class DUNNTrainer(KLIFFTrainer):
         :type fweight: float
         :param vweight: weight of the stress data in the loss function
         :type vweight: float
-        :param per_atom_weights: CURRENTLY UNSUPPORTED FOR THIS TRAINER
-            True to read from dataset, or numpy array
-            |default| ``False``
-        :type per_atom_weights: either boolean or np.ndarray
+        :param per_atom_weights: Per atom weights for the loss function,
+                                If boolean, value is provided, the weights
+                                are assumed to be present in the provided
+                                dataset. |default| ``False``
+        :type per_atom_weights: bool
         :param upload_to_kimkit: True to upload to kimkit repository
         :type upload_to_kimkit: bool
         :returns: trained model, loss object
         :rtype: NeuralNetwork, Loss (KliFF)
         """
-        dataset_handles = dataset_list
-        if dataset_handles is None or storage is None:
+        if dataset_list is None or storage is None:
             raise ValueError('A storage object and list of dataset handles'
                              ' are required!')
 
-        if not isinstance(dataset_handles, list):
-            dataset_handles = [dataset_handles]
+        if not isinstance(dataset_list, list):
+            dataset_list = [dataset_list]
         if workflow is None:
             workflow = self.default_wf
 
         combined_dataset = []
-        for dataset_handle in dataset_handles:
+        for dataset_handle in dataset_list:
             configs = self._get_training_data(dataset_handle, storage)
             combined_dataset.extend(configs)
 
@@ -205,11 +218,18 @@ class DUNNTrainer(KLIFFTrainer):
 
         calc = CalculatorTorch(potential.model, gpu=self.use_gpu)
         _ = calc.create(dataset.get_configs(), reuse=False)
-        # save_path = workflow.make_path(
-        #     self.__class__.__name__,
-        #     f'{path_type}_loss',
-        # ) # not use anywhere?
-        loss = Loss(calc)
+
+        # Create loss_path for logging if enabled
+        loss_path = None
+        if self.log_per_atom_pred:
+            loss_path = workflow.make_path(
+                self.__class__.__name__,
+                f'{path_type}_loss',
+            )
+
+        loss = Loss(calc,
+                    log_per_atom_pred=self.log_per_atom_pred,
+                    log_per_atom_pred_path=loss_path)
         _ = loss.minimize(
             method=self.loss_method,
             num_epochs=self.epochs,
@@ -250,21 +270,23 @@ class DUNNTrainer(KLIFFTrainer):
         :param save_path: path where the training script will be written
         :type save_path: str
         :param loss_path: path where the training losses will be saved, passed
-            to the kliff Loss object
+                          to the kliff Loss object
         :type loss_path: str
         :param dataset_list: list of dataset handles which should be used for
-            the training procedure
+                             the training procedure
         :type dataset_list: list of str
         :param potential: Potential instance to be trained, expect its
-            pre-trained state to be written to save_path/potential_to_train.pkl
+                          pre-trained state to be written to
+                          save_path/potential_to_train.pkl
         :type potential: Potential
         :param storage: instance of the storage module which contains the data
-            to train on
+                        to train on
         :type storage: Storage
-        :param per_atom_weights: CURRENTLY UNSUPPORTED FOR THIS TRAINER
-            True to read from dataset, or numpy array
-            |default| ``False``
-        :type per_atom_weights: either boolean or np.ndarray
+        :param per_atom_weights: Per atom weights for the loss function,
+                                If boolean, value is provided, the weights
+                                are assumed to be present in the provided
+                                dataset. |default| ``False``
+        :type per_atom_weights: bool
         :param upload_to_kimkit: True to upload to kimkit repository,
             currently unsupported
         :type upload_to_kimkit: bool
@@ -323,10 +345,9 @@ class DUNNTrainer(KLIFFTrainer):
             'gpu=trainer.use_gpu)\n'
             '_ = calc.create(dataset.get_configs(), reuse=False)\n'
             f'loss_path = "{loss_path}"\n'
-            'if loss_path is not None:\n'
-            '   log_per_atom_pred = True\n'
-            'else:\n'
-            '   log_per_atom_pred = False\n'
+            'log_per_atom_pred = trainer.log_per_atom_pred\n'
+            'if log_per_atom_pred and loss_path is None:\n'
+            '   log_per_atom_pred = False  # Cannot log without a path\n'
             f"loss = Loss(calc, log_per_atom_pred=log_per_atom_pred,\n "
             f"               log_per_atom_pred_path='{loss_path}')\n")
 
@@ -334,10 +355,26 @@ class DUNNTrainer(KLIFFTrainer):
                             'num_epochs=trainer.epochs, '
                             'batch_size=trainer.batch_size, '
                             'lr=trainer.learning_rate)')
-        # TODO: either consolidate this to call train() or update
-        # the saving to support upload_to_kimkit() flag
+
         save_potential = ('potential._write_potential_to_file('
                           "'trained_potential.pkl')")
+
+        save_model = (
+            'save_path_and_name = trainer._save_model('
+            '".",'
+            'potential,'
+            'loss=loss,'
+            'create_path=False,'
+            ')'
+            '\n'
+            'save_path = "/".join(save_path_and_name.split("/")[:-1])')
+
+        if upload_to_kimkit:
+            save_potential.append(
+                '\n'
+                'potential.save_potential_files(work_dir=save_path,'
+                'import_to_kimkit=True,'
+                'write_to_tmp_dir=True)')
 
         script = '\n'.join([
             import_lines,
@@ -349,6 +386,7 @@ class DUNNTrainer(KLIFFTrainer):
             construct_trainer,
             execute_training,
             save_potential,
+            save_model,
         ])
         with open(f'{save_path}/training_script.py', 'w') as fout:
             fout.write(script)
@@ -369,7 +407,7 @@ class DUNNTrainer(KLIFFTrainer):
         upload_to_kimkit=True,
     ) -> int:
         """
-        Asychronously train the potential based on the trainer details
+        Asynchronously train the potential based on the trainer details
 
         This is a main method of the trainer class, and uses the parameters
         supplied at instantiation to perform the potential training by
@@ -377,10 +415,10 @@ class DUNNTrainer(KLIFFTrainer):
         this method submits training to a job scheduler.
 
         :param path_type: specifier for the workflow path, to differentiate
-            training runs
+                          training runs
         :type path_type: str
         :param potential: potential to be trained. The actual model itself is
-            set as an attribute of the Potential object
+                          set as an attribute of the Potential object
         :type potential: Potential
         :param storage: an instance of the storage class
         :type storage: Storage
@@ -388,8 +426,8 @@ class DUNNTrainer(KLIFFTrainer):
             within the storage object to use as the dataset.
         :type dataset_list: list
         :param workflow: the workflow for managing path definition and job
-            submission, if none are supplied, will use the default workflow
-            defined in this class
+                         submission, if none are supplied, will use the
+                         default workflow defined in this class
         :type workflow: Workflow
         :param eweight: weight of energy data in the loss function
         :type eweight: float
@@ -397,30 +435,35 @@ class DUNNTrainer(KLIFFTrainer):
         :type fweight: float
         :param vweight: weight of the stress data in the loss function
         :type vweight: float
-        :param per_atom_weights: CURRENTLY UNSUPPORTED FOR THIS TRAINER
-            True to read from dataset, or numpy array
-            |default| ``False``
-        :type per_atom_weights: either boolean or np.ndarray
+        :param per_atom_weights: Per atom weights for the loss function,
+                                If boolean, value is provided, the weights
+                                are assumed to be present in the provided
+                                dataset. |default| ``False``
+        :type per_atom_weights: bool
         :param upload_to_kimkit: True to upload to kimkit repository
         :type upload_to_kimkit: bool
         :returns: calculation ID of the submitted job
         :rtype: int
         """
-        dataset_handles = dataset_list
-        if dataset_handles is None or storage is None:
+        if dataset_list is None or storage is None:
             raise ValueError('A storage object and list of dataset handles'
                              ' are required!')
 
-        if not isinstance(dataset_handles, list):
-            dataset_handles = [dataset_handles]
+        if not isinstance(dataset_list, list):
+            dataset_list = [dataset_list]
         save_path = workflow.make_path(self.__class__.__name__, f'{path_type}')
-        loss_path = workflow.make_path(self.__class__.__name__,
-                                       f'{path_type}_loss')
-        loss_path = path.abspath(loss_path)
+
+        # Only create loss_path if logging is enabled
+        loss_path = None
+        if self.log_per_atom_pred:
+            loss_path = workflow.make_path(self.__class__.__name__,
+                                           f'{path_type}_loss')
+            loss_path = path.abspath(loss_path)
+
         script = self._write_training_script(
             save_path,
             loss_path,
-            dataset_handles,
+            dataset_list,
             potential,
             storage,
             upload_to_kimkit=upload_to_kimkit,
@@ -447,12 +490,13 @@ class DUNNTrainer(KLIFFTrainer):
         :param calc_id: calculation ID of the submitted training job
         :type calc_id: int
         :param potential: :class:`~orchestrator.potential.dnn.KliffBPPotential`
-            class object that will be updated with the model saved to disk
-            after the training job.
+                          class object that will be updated with the model
+                          saved to disk after the training job.
         :type potential: KliffBPPotential
         :param workflow: the workflow for managing path definition and job
-            submission, if none are supplied, will use the default workflow
-            defined in this class |default| ``None``
+                         submission, if none are supplied, will use the
+                         default workflow defined in this class
+                         |default| ``None``
         :type workflow: Workflow
         """
         model_path = workflow.get_job_path(calc_id) + '/trained_potential.pkl'

@@ -165,14 +165,14 @@ if [[ ${TESTS} == "score" || ${TESTS} == "all" ]]; then
 	TEST_MODEL_DRIVER='SW__MD_335816936951_005'
 	TEST_MODEL='SW_StillingerWeber_1985_Si__MO_405512056662_006'
 	# extract from potential file in test_inputs
-	##tar -xf score/test_inputs/$TEST_MODEL_DRIVER.txz
-	##tar -xf score/test_inputs/$TEST_MODEL.txz
+	tar -xf score/test_inputs/$TEST_MODEL_DRIVER.txz
+	tar -xf score/test_inputs/$TEST_MODEL.txz
 	# install potential
-	##${KIM_API} install user ${TEST_MODEL_DRIVER}/
-	##${KIM_API} install user ${TEST_MODEL}/
+	${KIM_API} install user ${TEST_MODEL_DRIVER}/
+	${KIM_API} install user ${TEST_MODEL}/
 	# remove the extracted potential file, since we don't need it anymore
-	##rm -r ${TEST_MODEL_DRIVER}
-	##rm -r ${TEST_MODEL}
+	rm -r ${TEST_MODEL_DRIVER}
+	rm -r ${TEST_MODEL}
 	# substitute paths
 	cd ${INSTALL_PATH}/score/test_inputs
 	substitute_inputs

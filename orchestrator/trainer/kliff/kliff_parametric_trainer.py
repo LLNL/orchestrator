@@ -31,17 +31,17 @@ class ParametricModelTrainer(KLIFFTrainer):
     :param params_to_update: List of model parameters to update during training
     :type params_to_update: list
     :param training_split: Fraction of data to use for training (rest for
-        validation) |default| 1.0
+                           validation) |default| 1.0
     :type training_split: float
     :param loss_method: Loss function to use |default| 'mse'
     :type loss_method: str
     :param max_evals: Maximum number of optimization evaluations |default| 1000
     :type max_evals: int
     :param optimization_method: Optimization algorithm to use |default|
-        'L-BFGS-B'
+                                'L-BFGS-B'
     :type optimization_method: str
     :param scratch: Path to scratch directory for temporary files |default|
-        None
+                    None
     :type scratch: str or None
     """
 
@@ -67,21 +67,21 @@ class ParametricModelTrainer(KLIFFTrainer):
         :param model_name: name of the model to train
         :type model_name: str
         :param params_to_update: List of model parameters to update during
-            training
+                                 training
         :type params_to_update: list
         :param training_split: Fraction of data to use for training (rest for
-            validation) |default| 1.0
+                               validation) |default| 1.0
         :type training_split: float
         :param loss_method: Loss function to use |default| 'mse'
         :type loss_method: str
         :param max_evals: Maximum number of optimization evaluations
-            |default| 1000
+                         |default| 1000
         :type max_evals: int
         :param optimization_method: Optimization algorithm to use |default|
-            'L-BFGS-B'
+                                    'L-BFGS-B'
         :type optimization_method: str
         :param scratch: Path to scratch directory for temporary files
-            |default| None
+                        |default| None
         :type scratch: str or None
         """
         if scratch is None:
@@ -166,22 +166,21 @@ class ParametricModelTrainer(KLIFFTrainer):
         :type fweight: float
         :param vweight: weight of the stress data in the loss function
         :type vweight: float
-        :param per_atom_weights: CURRENTLY UNSUPPORTED FOR THIS TRAINER
-            True to read from dataset, or numpy array
-            |default| ``False``
-        :type per_atom_weights: either boolean or np.ndarray
+        :param per_atom_weights: Per atom weights for the loss function,
+            If boolean, value is provided, the weights are assumed to be
+            present in the provided dataset. |default| ``False``
+        :type per_atom_weights: bool
         :param upload_to_kimkit: True to upload to kimkit repository
         :type upload_to_kimkit: bool
         :returns: trained model, loss object
         :rtype: KIMModel, None
         """
 
-        dataset_handles = dataset_list
-        if dataset_handles is None or storage is None:
+        if dataset_list is None or storage is None:
             raise ValueError('A storage object and list of dataset handles'
                              ' are required!')
-        if not isinstance(dataset_handles, list):
-            dataset_handles = [dataset_handles]
+        if not isinstance(dataset_list, list):
+            dataset_list = [dataset_list]
         if workflow is None:
             workflow = self.default_wf
 
@@ -191,7 +190,7 @@ class ParametricModelTrainer(KLIFFTrainer):
         os.makedirs(workspace, exist_ok=True)
 
         combined_dataset = []
-        for dataset_handle in dataset_handles:
+        for dataset_handle in dataset_list:
             configs = self._get_training_data(dataset_handle, storage)
             combined_dataset.extend(configs)
 

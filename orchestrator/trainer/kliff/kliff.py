@@ -1,9 +1,10 @@
 import pathlib
+import shutil
+from glob import glob
 
 from ase import Atoms
 import yaml
 from kliff.legacy.loss import Loss
-from os import system
 from ..trainer_base import Trainer
 from ...utils.data_standard import (
     ENERGY_WEIGHT_KEY,
@@ -74,8 +75,8 @@ class KLIFFTrainer(Trainer):
             training the potential (e.g., "L-BFGS-B", "Adam")
         :type optimization_method: str
         :param scratch: Path to a directory for storing temporary or scratch
-            files during training. If None, it defaults to './scratch_kliff'
-            within the execution directory.
+            files during training. If None, it defaults to
+            './scratch_kliff' within the execution directory.
         :type scratch: str, optional
         :param kwargs: Arbitrary keyword arguments that may be used by
             specific subclasses or for advanced configuration options.
@@ -112,7 +113,7 @@ class KLIFFTrainer(Trainer):
         (i.e. adding weights) as necessary for training.
 
         :param dataset_handle: the identifier of the dataset to extract from
-            the storage module
+                               the storage module
         :type dataset_handle: str
         :param storage: storage instance where the training data is saved
         :type storage: Storage
@@ -149,24 +150,25 @@ class KLIFFTrainer(Trainer):
         installed version of the potential can be run using KIM libraries.
 
         :param path_type: specifier for the workflow path, to differentiate
-            training runs and where the model will be saved
+                          training runs and where the model will be saved
         :type path_type: str
         :param potential: potential to be saved; one of
-            :class:`~orchestrator.potential.dnn.KliffBPPotential`,
-            :class:`~orchestrator.potential.kim.KIMPotential`
+                         :class:`~orchestrator.potential.dnn.KliffBPPotential`
+                         ,:class:`~orchestrator.potential.kim.KIMPotential`
         :type potential: KliffBPPotential or KIMPotential or a kliff model
         :param potential_name: name to save the potential as
-            |default| 'kim_potential'
+                              |default| 'kim_potential'
         :type potential_name: str
         :param loss: loss object to save, optional. Used if potential is a
-            pytorch model. |default| ``None``
+                    pytorch model. |default| ``None``
         :type loss: Loss (kliff.loss)
         :param create_path: if the function needs to create a new path, or if
-            path_type should be used as the full path |default| ``True``
+                            path_type should be used as the full path
+                            |default| ``True``
         :type create_path: boolean
         :param workflow: the workflow for managing path definition, if none are
-            supplied, will use the default workflow defined in this class
-            |default| ``None``
+                        supplied, will use the default workflow defined in this
+                        class |default| ``None``
         :type workflow: Workflow
         :returns: path where the model is saved (inclusive)
         :rtype: str
@@ -193,9 +195,36 @@ class KLIFFTrainer(Trainer):
         potential.install_potential_in_kim_api(save_path=save_path,
                                                potential_name=potential_name,
                                                install_locality='environment')
-        system((f'mv kliff_saved_model finger*pkl kliff.log '
-                f'{save_path}/{potential_name}'))
-        return f'{save_path}/{potential_name}'
+
+        # clean up any default files if present.
+        # Usually after the training you might have kliff.log, *.pkl, and
+        # kliff_saved_model folder.
+        fully_qualified_save_path = f'{save_path}/{potential_name}'
+
+        # kliff log file
+        try:
+            shutil.move("kliff.log", fully_qualified_save_path)
+        except Exception as err:
+            self.logger.info(f'Failed to move kliff.log: {err}'
+                             ' May be this file does not exist?')
+
+        # any saved fingerprints
+        try:
+            pkl_files = glob("finger*.pkl")
+            for file in pkl_files:
+                shutil.move(file, fully_qualified_save_path)
+        except Exception as err:
+            self.logger.info(f'Failed to move {pkl_files}: {err}'
+                             ' May be no pkl files exist?')
+
+        # kliff_saved_model folder
+        try:
+            shutil.move("kliff_saved_model", fully_qualified_save_path)
+        except Exception as err:
+            self.logger.info(f'Failed to move kliff_saved_model: {err}'
+                             ' May be this folder does not exist?')
+
+        return fully_qualified_save_path
 
     def train(
         self,
@@ -217,10 +246,10 @@ class KLIFFTrainer(Trainer):
         specific implementations
 
         :param path_type: specifier for the workflow path, to differentiate
-            training runs
+                          training runs
         :type path_type: str
         :param potential: potential to be trained. The actual model itself is
-            set as an attribute of the Potential object
+                          set as an attribute of the Potential object
         :type potential: Potential
         :param storage: an instance of the storage class
         :type storage: Storage
@@ -228,8 +257,9 @@ class KLIFFTrainer(Trainer):
             within the storage object to use as the dataset.
         :type dataset_list: list
         :param workflow: the workflow for managing path definition and job
-            submission, if none are supplied, will use the default workflow
-            defined in this class |default| ``None``
+                         submission, if none are supplied, will use the
+                         default workflow defined in this class |default|
+                         ``None``
         :type workflow: Workflow
         :param eweight: weight of energy data in the loss function
         :type eweight: float
@@ -237,9 +267,9 @@ class KLIFFTrainer(Trainer):
         :type fweight: float
         :param vweight: weight of the stress data in the loss function
         :type vweight: float
-        :param per_atom_weights: True to read from dataset, or numpy array
-            |default| ``False``
-        :type per_atom_weights: either boolean or np.ndarray
+        :param per_atom_weights: True to read from dataset, |default|
+                                ``False``
+        :type per_atom_weights: bool
         :param upload_to_kimkit: True to upload to kimkit repository
         :type upload_to_kimkit: bool
         :returns: trained model, loss object
@@ -271,10 +301,10 @@ class KLIFFTrainer(Trainer):
         this method submits training to a job scheduler.
 
         :param path_type: specifier for the workflow path, to differentiate
-            training runs
+                         training runs
         :type path_type: str
         :param potential: potential to be trained. The actual model itself is
-            set as an attribute of the Potential object
+                          set as an attribute of the Potential object
         :type potential: Potential
         :param storage: an instance of the storage class
         :type storage: Storage
@@ -282,8 +312,9 @@ class KLIFFTrainer(Trainer):
             within the storage object to use as the dataset.
         :type dataset_list: list
         :param workflow: the workflow for managing path definition and job
-            submission, if none are supplied, will use the default workflow
-            defined in this class |default| ``None``
+                         submission, if none are supplied, will use the
+                         default workflow defined in this class
+                         |default| ``None``
         :type workflow: Workflow
         :param eweight: weight of energy data in the loss function
         :type eweight: float
@@ -291,9 +322,11 @@ class KLIFFTrainer(Trainer):
         :type fweight: float
         :param vweight: weight of the stress data in the loss function
         :type vweight: float
-        :param per_atom_weights: True to read from dataset, or numpy array
-            |default| ``False``
-        :type per_atom_weights: either boolean or np.ndarray
+        :param per_atom_weights: Per atom weights for the loss function,
+                                If boolean, value is provided, the weights
+                                are assumed to be present in the provided
+                                dataset. |default| ``False``
+        :type per_atom_weights: bool
         :param upload_to_kimkit: True to upload to kimkit repository
         :type upload_to_kimkit: bool
         :returns: calculation ID of the submitted job

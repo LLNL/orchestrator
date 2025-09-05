@@ -217,7 +217,7 @@ class Augmentor(Recorder):
             for config in scored_configs
         ]
         combined_scores = np.concatenate(novelty_scores)
-        self.logger.info(f'{np.sum(combined_scores>test_criteria)} '
+        self.logger.info(f'{np.sum(combined_scores > test_criteria)} '
                          f'environments out of {len(combined_scores)} are '
                          'found to be novel')
         max_novelty_index = np.argmax(combined_scores)
@@ -1102,7 +1102,8 @@ class Augmentor(Recorder):
                 break
             self.logger.info(f'{pid_string}Starting with {num_envs} envs from '
                              f'{len(pruned_dataset)} configurations, pruning '
-                             f'to {sample_target} ({(1-prune_amount)*100}%)')
+                             f'to {sample_target} ({(1 - prune_amount) * 100}'
+                             '%)')
             # prune over distance in descriptor space, with a single array of
             # all atomic envs
             selected_descriptors = []
